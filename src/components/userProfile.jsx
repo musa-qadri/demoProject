@@ -43,19 +43,21 @@ export default function ProfileSection() {
         <div className="w-[98%] mx-auto bg-white px-2 rounded-lg shadow-lg mt-2 py-4">
             <div className="max-w-full">
                 {/* Navigation Tabs */}
-                <div className="flex gap-2 mb-5 border-b  border-gray-200">
-                    {navTabs.map((tab, idx) => (
-                        <Button
-                            key={idx}
-                            variant={tab === 'Profile' ? 'default' : 'ghost'}
-                            className={` text-sm font-medium transition-all ${tab === 'Profile'
-                                    ? 'bg-indigo-600 text-white rounded rounded border-b border-indigo-600 hover:bg-indigo-700'
-                                    : 'text-gray-600 border mb-2 hover:text-gray-900 hover:bg-gray-50 rounded-t-md rounded'
-                                }`}
-                        >
-                            {tab}
-                        </Button>
-                    ))}
+                <div className="flex gap-2 mb-5 border-b border-gray-200 overflow-x-auto scrollbar-hide">
+                    <div className="flex gap-2 flex-nowrap min-w-max">
+                        {navTabs.map((tab, idx) => (
+                            <Button
+                                key={idx}
+                                variant={tab === 'Profile' ? 'default' : 'ghost'}
+                                className={`text-sm font-medium transition-all whitespace-nowrap ${tab === 'Profile'
+                                    ? 'bg-indigo-600 text-white rounded border-b border-indigo-600 hover:bg-indigo-700'
+                                    : 'text-gray-600 border mb-2 hover:text-gray-900 hover:bg-gray-50 rounded'
+                                    }`}
+                            >
+                                {tab}
+                            </Button>
+                        ))}
+                    </div>
                 </div>
 
                 <div className="flex gap-5">
@@ -74,9 +76,9 @@ export default function ProfileSection() {
                                     <div className="w-28 h-32 flex items-end justify-center">
                                         {/* <User size={100} className="text-teal-600" strokeWidth={2.5} /> */}
                                         <Image
-                                        width={400}
-                                        height={400}
-                                        src="/boypic.png" alt="Linguistica" className=" object-contain" />
+                                            width={400}
+                                            height={400}
+                                            src="/boypic.png" alt="Linguistica" className=" object-contain" />
                                     </div>
                                 </div>
                                 <Button size="sm" variant="destructive" className="absolute bottom-2 left-2 text-[11px] px-2.5 py-1.5 h-auto shadow-sm">
@@ -102,8 +104,8 @@ export default function ProfileSection() {
                                         key={idx}
                                         variant="ghost"
                                         className={`w-full justify-start px-3 py-2 h-auto rounded-md transition-all text-sm relative ${item === 'Schedule'
-                                                ? 'bg-gray-50 text-gray-900 font-semibold hover:bg-gray-50'
-                                                : 'text-gray-600 hover:bg-gray-50 font-medium'
+                                            ? 'bg-gray-50 text-gray-900 font-semibold hover:bg-gray-50'
+                                            : 'text-gray-600 hover:bg-gray-50 font-medium'
                                             }`}
                                     >
                                         {item === 'Schedule' && (
