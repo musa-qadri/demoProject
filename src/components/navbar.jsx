@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge";
 
 export default function Navbar() {
     return (
-        <div className="w-[98%]  mt-1 mx-auto bg-white h-20 px-8 flex items-center justify-between rounded-lg shadow-lg">
+        <div className="w-[98%]  mt-1 mx-auto bg-white h-18 px-4 flex items-center justify-between rounded-lg shadow-sm">
             {/* Title Section */}
             <div>
                 <h1 className="text-3xl font-bold text-gray-900">Interpreter</h1>

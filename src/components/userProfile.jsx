@@ -1,5 +1,5 @@
 import React from 'react';
-import { User, Trash2 } from 'lucide-react';
+import { User, Trash2, ChevronDown } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -11,6 +11,12 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table";
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import Image from 'next/image';
 
 export default function ProfileSection() {
@@ -36,27 +42,68 @@ export default function ProfileSection() {
     const navTabs = [
         'Home', 'Profile', 'Paperworks', 'Health Requirements',
         'Orientations', 'My Pay', 'Training/Certificates',
-        'Performance', 'Share Feed Back', 'Company Doc'
+        'Performance', 'Share Feed Back'
     ];
 
+    // Tabs that should have dropdowns
+    const tabsWithDropdown = ['Orientations', 'My Pay', 'Training/Certificates', 'Performance'];
+
+    // Dropdown options for each tab
+    const dropdownOptions = {
+        'Orientations': ['New Orientation', 'Pending', 'Completed', 'Scheduled'],
+        'My Pay': ['Payslips', 'Tax Documents', 'Payment History', 'Banking Details'],
+        'Training/Certificates': ['Active Courses', 'Completed Courses', 'Certificates', 'Upload Documents'],
+        'Performance': ['Reviews', 'Goals', 'Feedback', 'Reports']
+    };
+
     return (
-        <div className="w-[98%] mx-auto bg-white px-2 rounded-lg shadow-lg mt-2 py-4">
+        <div className="w-[98%] mx-auto bg-white px-2 rounded-lg shadow-sm mt-2 py-4">
             <div className="max-w-full">
                 {/* Navigation Tabs */}
                 <div className="flex gap-2 mb-5 border-b border-gray-200 overflow-x-auto scrollbar-hide">
                     <div className="flex gap-2 flex-nowrap min-w-max">
-                        {navTabs.map((tab, idx) => (
-                            <Button
-                                key={idx}
-                                variant={tab === 'Profile' ? 'default' : 'ghost'}
-                                className={`text-sm font-medium transition-all whitespace-nowrap ${tab === 'Profile'
-                                    ? 'bg-indigo-600 text-white rounded border-b border-indigo-600 hover:bg-indigo-700'
-                                    : 'text-gray-600 border mb-2 hover:text-gray-900 hover:bg-gray-50 rounded'
-                                    }`}
-                            >
-                                {tab}
-                            </Button>
-                        ))}
+                        {navTabs.map((tab, idx) => {
+                            const hasDropdown = tabsWithDropdown.includes(tab);
+
+                            if (hasDropdown) {
+                                return (
+                                    <DropdownMenu key={idx}>
+                                        <DropdownMenuTrigger asChild>
+                                            <Button
+                                                variant={tab === 'Profile' ? 'default' : 'ghost'}
+                                                className={`text-sm font-medium transition-all whitespace-nowrap ${tab === 'Profile'
+                                                    ? 'bg-[#443B83] text-white rounded border-b border-indigo-600 hover:bg-indigo-700'
+                                                    : 'text-gray-600 border mb-2 hover:text-gray-900 hover:bg-gray-50 rounded'
+                                                    }`}
+                                            >
+                                                {tab}
+                                                <ChevronDown className="ml-1 h-3 w-3" />
+                                            </Button>
+                                        </DropdownMenuTrigger>
+                                        <DropdownMenuContent align="start" className="w-48">
+                                            {dropdownOptions[tab]?.map((option, optIdx) => (
+                                                <DropdownMenuItem key={optIdx} className="cursor-pointer">
+                                                    {option}
+                                                </DropdownMenuItem>
+                                            ))}
+                                        </DropdownMenuContent>
+                                    </DropdownMenu>
+                                );
+                            }
+
+                            return (
+                                <Button
+                                    key={idx}
+                                    variant={tab === 'Profile' ? 'default' : 'ghost'}
+                                    className={`text-sm font-medium transition-all whitespace-nowrap ${tab === 'Profile'
+                                        ? 'bg-[#443B83] text-white rounded border-b border-indigo-600 hover:bg-indigo-700'
+                                        : 'text-gray-600 border mb-2 hover:text-gray-900 hover:bg-gray-50 rounded'
+                                        }`}
+                                >
+                                    {tab}
+                                </Button>
+                            );
+                        })}
                     </div>
                 </div>
 
@@ -92,13 +139,13 @@ export default function ProfileSection() {
                                 <div className="w-full justify-center  text-black font-semibold ">
                                     Spanish Contractor
                                 </div>
-                                <Badge className=" justify-center bg-indigo-900 text-white py-1 px-5 rounded-md font-semibold text-xs shadow-sm hover:bg-indigo-600">
+                                <Badge className=" justify-center bg-[#443B83] text-white py-1 px-5 rounded-md font-semibold text-xs shadow-sm hover:bg-indigo-600">
                                     US-Based
                                 </Badge>
                             </div>
 
                             {/* Menu Items */}
-                            <nav className="space-y-0.5">
+                            <nav className="space-y-0.5 border border-gray-100 rounded-md mb-5">
                                 {menuItems.map((item, idx) => (
                                     <Button
                                         key={idx}
@@ -108,9 +155,7 @@ export default function ProfileSection() {
                                             : 'text-gray-600 hover:bg-gray-50 font-medium'
                                             }`}
                                     >
-                                        {item === 'Schedule' && (
-                                            <div className="absolute left-0 top-0 bottom-0 w-1 bg-indigo-600 rounded-r-sm"></div>
-                                        )}
+
                                         {item}
                                     </Button>
                                 ))}
